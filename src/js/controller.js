@@ -8,6 +8,7 @@ import PaginationView from './views/paginationView.js'
 import 'core-js/stable';
 import 'regenerator-runtime/runtime'
 import paginationView from './views/paginationView.js'
+
 const { async } = require("q");
 
 // https://forkify-api.herokuapp.com/v2
@@ -71,10 +72,26 @@ const controlPagination = function (goToPage) {
   PaginationView.render(model.state.search)
 }
 
+const controlServings = function (newServings) {
+
+  // update the recipe servings (is state)
+  model.updateServings(newServings)
+
+
+  // Update the recipe view
+  // recipeView.render(model.state.recipe)
+  recipeView.update(model.state.recipe)
+}
+
 const init = function () {
   recipeView.addHandlerRender(controlRecipe)
+
+  // listening to increase or decrease 
+  recipeView.addHandlerUpdateServings(controlServings)
+
   searchView.addHandlerSearch(controlSearchResults)
   paginationView.addHandlerClick(controlPagination)
+
 
 };
 init();
