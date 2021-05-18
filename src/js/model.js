@@ -1,12 +1,14 @@
 import { async } from "q";
 import { API_URL } from './config.js'
+import { RES_PER_PAGE } from './config.js'
 import { getJSON } from './helpers.js'
 
 export const state = {
     recipe: {},
     search: {
         query: '',
-        results: []
+        page: 1,
+        results: [],
     }
 
 };
@@ -56,4 +58,14 @@ export const loadSearchReasult = async function (query) {
         console.error(err)
         throw err
     }
+};
+
+export const getSearchResultsPage = function (page = state.search.page) {
+    state.search.page = page
+    const start = (page - 1) * RES_PER_PAGE;
+    const end = page * RES_PER_PAGE
+
+
+
+    return state.search.results.slice(start, end)
 }

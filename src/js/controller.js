@@ -2,7 +2,7 @@ import * as model from './model.js'
 import recipeView from './views/recipeView.js'
 import searchView from './views/searchView.js'
 import resultsView from './views/resultsView.js'
-import { func } from 'assert-plus';
+
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime'
@@ -10,9 +10,10 @@ const { async } = require("q");
 
 // https://forkify-api.herokuapp.com/v2
 
-if (module.hot) {
-  module.hot.accept();
-}
+/// against re-load the page ==> parcel feature
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 ///////////////////////////////////////
 const controlRecipe = async function () {
@@ -47,8 +48,8 @@ const controlSearchResults = async function () {
     await model.loadSearchReasult(query)
 
     // 3) Render results
-
-    resultsView.render(model.state.search.results)
+    // resultsView.render(model.state.search.results)
+    resultsView.render(model.getSearchResultsPage())
 
   } catch (err) {
     console.error(err)
