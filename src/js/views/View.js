@@ -14,7 +14,9 @@ export default class View {
     }
 
     update(data) {
-        if (!data || (Array.isArray(data) && data.length === 0)) return this.renderError()
+
+        // error message on first load :S 
+        // if (!data || (Array.isArray(data) && data.length === 0)) return this.renderError()
 
         this._data = data;
         const newMarkup = this._generateMarkup();
@@ -26,8 +28,10 @@ export default class View {
         newElements.forEach((newEl, i) => {
             const curEl = curElements[i]
             // console.log(curEl, newEl.isEqualNode(curEl))
+
+
             // checking and updating the TEXT 
-            if (!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue.trim() !== "") {
+            if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== "") {
                 // console.log('💥', newEl.firstChild.nodeValue.trim())
                 curEl.textContent = newEl.textContent
             }
@@ -35,16 +39,13 @@ export default class View {
             // checking and updating the ATTRIBUTES
 
             if (!newEl.isEqualNode(curEl)) {
+
                 Array.from(newEl.attributes).forEach(attr => {
+
                     curEl.setAttribute(attr.name, attr.value)
                 })
             }
-
-
-
         })
-
-
     }
 
 

@@ -28,6 +28,10 @@ const controlRecipe = async function () {
 
     recipeView.renderSpinner();
 
+    // 0) update results view  to mark selected search result 
+
+    resultsView.update(model.getSearchResultsPage())
+
     // 1)  Loading recipe
 
     await model.loadRecipe(id)
@@ -53,7 +57,7 @@ const controlSearchResults = async function () {
 
     // 3) Render results
     // resultsView.render(model.state.search.results)
-    resultsView.render(model.getSearchResultsPage())
+    resultsView.render(model.getSearchResultsPage(1))
 
     // 4) Render the initial pagitantion 
     PaginationView.render(model.state.search)
@@ -76,10 +80,14 @@ const controlServings = function (newServings) {
 
   // update the recipe servings (is state)
   model.updateServings(newServings)
-
-
   // Update the recipe view
   // recipeView.render(model.state.recipe)
+  recipeView.update(model.state.recipe)
+}
+
+const controlAddBookmark = function () {
+  model.addBookMark(model.state.recipe)
+  console.log(model.state.recipe)
   recipeView.update(model.state.recipe)
 }
 
@@ -88,6 +96,8 @@ const init = function () {
 
   // listening to increase or decrease 
   recipeView.addHandlerUpdateServings(controlServings)
+  // listening to bookmark button click 
+  recipeView.addHandlerAddBookmark(controlAddBookmark)
 
   searchView.addHandlerSearch(controlSearchResults)
   paginationView.addHandlerClick(controlPagination)
