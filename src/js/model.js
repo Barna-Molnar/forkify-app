@@ -46,7 +46,7 @@ export const loadRecipe = async function (id) {
     }
 }
 
-export const loadSearchReasult = async function (query) {
+export const loadSearchResult = async function (query) {
     try {
 
         state.search.query = query;

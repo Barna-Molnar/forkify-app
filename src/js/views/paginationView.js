@@ -16,6 +16,7 @@ class PaginationView extends View {
     }
 
     _generateMarkup() {
+        console.log(this._data)
         const curPage = this._data.page
 
         // Next highest number of pages
