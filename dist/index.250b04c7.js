@@ -446,7 +446,8 @@ const controlServings = function(newServings) {
     _recipeViewJsDefault.default.update(_modelJs.state.recipe);
 };
 const controlAddBookmark = function() {
-    _modelJs.addBookMark(_modelJs.state.recipe);
+    if (!_modelJs.state.recipe.bookmarked) _modelJs.addBookmark(_modelJs.state.recipe);
+    else _modelJs.deleteBookmark(_modelJs.state.recipe.id);
     console.log(_modelJs.state.recipe);
     _recipeViewJsDefault.default.update(_modelJs.state.recipe);
 };
@@ -13892,7 +13893,9 @@ parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage
 );
 parcelHelpers.export(exports, "updateServings", ()=>updateServings
 );
-parcelHelpers.export(exports, "addBookMark", ()=>addBookMark
+parcelHelpers.export(exports, "addBookmark", ()=>addBookmark
+);
+parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark
 );
 var _q = require("q");
 var _configJs = require("./config.js");
@@ -13926,6 +13929,10 @@ const loadRecipe = async function(id) {
     } catch (err) {
         throw err;
     }
+    // check if there is any bookmarked recipe 
+    if (state.bookmarks.some((bookmark)=>bookmark.id === id
+    )) state.recipe.bookmarked = true;
+    else state.recipe.bookmarked = false;
 };
 const loadSearchReasult = async function(query) {
     try {
@@ -13946,7 +13953,7 @@ const loadSearchReasult = async function(query) {
 };
 const getSearchResultsPage = function(page = state.search.page) {
     state.search.page = page;
-    console.log(state.search.page);
+    // console.log(state.search.page)
     const start = (page - 1) * state.search.resultsPerPage;
     const end = page * state.search.resultsPerPage;
     return state.search.results.slice(start, end);
@@ -13959,11 +13966,18 @@ const updateServings = function(newServings) {
     });
     state.recipe.servings = newServings;
 };
-const addBookMark = function(recipe) {
+const addBookmark = function(recipe) {
     // add bookmark 
     state.bookmarks.push(recipe);
-    // Mark current recipe as bookmark \
+    // Mark current recipe as bookmarked\
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+const deleteBookmark = function(id) {
+    const index = state.bookmarks.findIndex((el)=>el.id = id
+    );
+    state.bookmarks.splice(index, 1);
+    // Mark current recipe as NOT bookmarked
+    if (id === state.recipe.id) state.recipe.bookmarked = false;
 };
 
 },{"q":"72wJz","@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./config.js":"6pr2F","./helpers.js":"581KF"}],"6pr2F":[function(require,module,exports) {
@@ -14422,7 +14436,7 @@ class ResultsView extends _viewJsDefault.default {
     _errorMessage = 'No recipe found for your query!Please try again :)! ';
     _message;
     _generateMarkup() {
-        console.log(this._data);
+        // console.log(this._data)
         return this._data.map(this._generateMarkupPreview).join('');
     }
     _generateMarkupPreview(recipe) {
