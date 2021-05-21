@@ -1,4 +1,4 @@
-import { async } from "q";
+
 import { API_URL } from './config.js'
 import { RES_PER_PAGE } from './config.js'
 import { getJSON } from './helpers.js'
@@ -91,6 +91,11 @@ export const updateServings = function (newServings) {
 
 }
 
+// storing the data in the localstorage 
+const persistBookmarks = function () {
+    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks))
+}
+
 export const addBookmark = function (recipe) {
     // add bookmark 
 
@@ -99,6 +104,7 @@ export const addBookmark = function (recipe) {
     // Mark current recipe as bookmarked\
 
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+    persistBookmarks()
 };
 
 export const deleteBookmark = function (id) {
@@ -108,4 +114,18 @@ export const deleteBookmark = function (id) {
     // Mark current recipe as NOT bookmarked
 
     if (id === state.recipe.id) state.recipe.bookmarked = false;
+    persistBookmarks()
+}
+
+// get the data from localstorage and store in the state on load(init function)
+const init = function () {
+    const storage = localStorage.getItem('bookmarks')
+    console.log(JSON.parse(storage))
+    if (storage) state.bookmarks = JSON.parse(storage)
+
+}
+init();
+
+const clearBookmarks = function () {
+    localStorage.clear('bookmarks')
 }

@@ -409,14 +409,15 @@ const controlRecipe = async function() {
         _recipeViewJsDefault.default.renderSpinner();
         // 0) update results view  to mark selected search result 
         _resultsViewJsDefault.default.update(_modelJs.getSearchResultsPage());
-        // update bookmarksView 
-        _bookmarksViewJsDefault.default.update(_modelJs.state.bookmarks);
         // 1)  Loading recipe
         await _modelJs.loadRecipe(id);
         // 2) Rendering recipe 
         _recipeViewJsDefault.default.render(_modelJs.state.recipe);
+        // update bookmarksView 
+        _bookmarksViewJsDefault.default.update(_modelJs.state.bookmarks);
     } catch (err) {
         _recipeViewJsDefault.default.renderError();
+        console.log(err);
     }
 };
 const controlSearchResults = async function() {
@@ -458,7 +459,12 @@ const controlAddBookmark = function() {
     // render bookmarks
     _bookmarksViewJsDefault.default.render(_modelJs.state.bookmarks);
 };
+const controlHandlerBookmark = function() {
+    _bookmarksViewJsDefault.default.render(_modelJs.state.bookmarks);
+};
 const init = function() {
+    // bookmark
+    _bookmarksViewJsDefault.default.addHandlerRender(controlHandlerBookmark);
     _recipeViewJsDefault.default.addHandlerRender(controlRecipe);
     // listening to increase or decrease 
     _recipeViewJsDefault.default.addHandlerUpdateServings(controlServings);
@@ -13904,7 +13910,6 @@ parcelHelpers.export(exports, "addBookmark", ()=>addBookmark
 );
 parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark
 );
-var _q = require("q");
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
 const state = {
@@ -13973,11 +13978,16 @@ const updateServings = function(newServings) {
     });
     state.recipe.servings = newServings;
 };
+// storing the data in the localstorage 
+const persistBookmarks = function() {
+    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
 const addBookmark = function(recipe) {
     // add bookmark 
     state.bookmarks.push(recipe);
     // Mark current recipe as bookmarked\
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+    persistBookmarks();
 };
 const deleteBookmark = function(id) {
     const index = state.bookmarks.findIndex((el)=>el.id = id
@@ -13985,9 +13995,20 @@ const deleteBookmark = function(id) {
     state.bookmarks.splice(index, 1);
     // Mark current recipe as NOT bookmarked
     if (id === state.recipe.id) state.recipe.bookmarked = false;
+    persistBookmarks();
+};
+// get the data from localstorage and store in the state on load(init function)
+const init = function() {
+    const storage = localStorage.getItem('bookmarks');
+    console.log(JSON.parse(storage));
+    if (storage) state.bookmarks = JSON.parse(storage);
+};
+init();
+const clearBookmarks = function() {
+    localStorage.clear('bookmarks');
 };
 
-},{"q":"72wJz","@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./config.js":"6pr2F","./helpers.js":"581KF"}],"6pr2F":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR","./config.js":"6pr2F","./helpers.js":"581KF"}],"6pr2F":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL
@@ -14507,6 +14528,9 @@ class BookmarksView extends _previewViewDefault.default {
     _parentElement = document.querySelector('.bookmarks__list');
     _errorMessage = 'No bookmarks yet. Find a nice recipe, and bookmark it :)! ';
     _message;
+    addHandlerRender(handler) {
+        window.addEventListener('load', handler);
+    }
 }
 exports.default = new BookmarksView();
 

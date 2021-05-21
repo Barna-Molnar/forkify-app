@@ -10,6 +10,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime'
 import paginationView from './views/paginationView.js'
 
+
 const { async } = require("q");
 
 // https://forkify-api.herokuapp.com/v2
@@ -33,8 +34,6 @@ const controlRecipe = async function () {
 
     resultsView.update(model.getSearchResultsPage())
 
-    // update bookmarksView 
-    bookmarksView.update(model.state.bookmarks)
 
     // 1)  Loading recipe
 
@@ -42,9 +41,12 @@ const controlRecipe = async function () {
 
     // 2) Rendering recipe 
     recipeView.render(model.state.recipe)
+    // update bookmarksView 
+    bookmarksView.update(model.state.bookmarks)
 
   } catch (err) {
     recipeView.renderError()
+    console.log(err)
 
   }
 };
@@ -101,7 +103,16 @@ const controlAddBookmark = function () {
   bookmarksView.render(model.state.bookmarks)
 }
 
+
+const controlHandlerBookmark = function () {
+  bookmarksView.render(model.state.bookmarks)
+
+}
+
 const init = function () {
+  // bookmark
+  bookmarksView.addHandlerRender(controlHandlerBookmark)
+
   recipeView.addHandlerRender(controlRecipe)
 
   // listening to increase or decrease 

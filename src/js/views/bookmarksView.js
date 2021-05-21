@@ -8,6 +8,10 @@ class BookmarksView extends PreviewView {
     _message
 
 
+    addHandlerRender(handler) {
+        window.addEventListener('load', handler)
+    }
+
     // _generateMarkup() {
     //     // console.log(this._data) 
     //     return this._data.map(this._generateMarkupPreview).join('')
