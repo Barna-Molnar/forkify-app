@@ -1,0 +1,11 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// import View from './View.js';
+var _previewView = require("./previewView");
+var _previewViewDefault = parcelHelpers.interopDefault(_previewView);
+class ResultsView extends _previewViewDefault.default {
+    _parentElement = document.querySelector('.results');
+    _errorMessage = 'No recipe found for your query!Please try again :)! ';
+    _message;
+}
+exports.default = new ResultsView();
