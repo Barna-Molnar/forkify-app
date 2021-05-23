@@ -5,6 +5,7 @@ import { Obj } from 'prelude-ls';
 
 class AddRecipeView extends View {
     _parentElement = document.querySelector('.upload');
+    _message = 'You have succesfully uploaded a Recipe!! :D'
     _window = document.querySelector('.add-recipe-window')
     _overlay = document.querySelector('.overlay')
     _btnOpen = document.querySelector('.nav__btn--add-recipe')

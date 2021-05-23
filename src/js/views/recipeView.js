@@ -6,36 +6,36 @@ import { Fraction } from 'fractional'
 
 
 class RecipeView extends View {
-    _parentElement = document.querySelector('.recipe');
-    _errorMessage = 'We could not find that recipe. Please try anoher one!'
-    _message
+  _parentElement = document.querySelector('.recipe');
+  _errorMessage = 'We could not find that recipe. Please try anoher one!'
+  _message
 
 
-    addHandlerRender(handler) {
-        ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler))
-    }
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler))
+  }
 
-    addHandlerUpdateServings = function (handler) {
-        this._parentElement.addEventListener('click', function (e) {
-            const btn = e.target.closest('.btn--update-servings')
-            if (!btn) return
+  addHandlerUpdateServings = function (handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--update-servings')
+      if (!btn) return
 
-            const { updateTo } = btn.dataset
-            if (+updateTo > 0) handler(+updateTo);
-        })
-    };
+      const { updateTo } = btn.dataset
+      if (+updateTo > 0) handler(+updateTo);
+    })
+  };
 
-    addHandlerAddBookmark(handler) {
-        this._parentElement.addEventListener('click', function (e) {
-            const btn = e.target.closest('.btn--bookmark')
-            if (!btn) return
-            handler();
-        })
-    }
+  addHandlerAddBookmark(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--bookmark')
+      if (!btn) return
+      handler();
+    })
+  }
 
 
-    _generateMarkup() {
-        return `
+  _generateMarkup() {
+    return `
         
         <figure class="recipe__fig">
           <img src="${this._data.image}" alt="${this._data.title}" class="recipe__img" />
@@ -73,7 +73,7 @@ class RecipeView extends View {
             </div>
           </div>
 
-          <div class="recipe__user-generated">
+          <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
             <svg>
               <use href="${icons}#icon-user"></use>
             </svg>
@@ -90,8 +90,8 @@ class RecipeView extends View {
             <ul class="recipe__ingredient-list">
 
                     ${this._data.ingredients
-                .map(this._genarateIngredient)
-                .join('')}
+        .map(this._genarateIngredient)
+        .join('')}
             </ul>
         </div>
 
@@ -115,9 +115,9 @@ class RecipeView extends View {
         </div>
     
     `;
-    }
-    _genarateIngredient(ing) {
-        return ` 
+  }
+  _genarateIngredient(ing) {
+    return ` 
                     <li class="recipe__ingredient">
                         <svg class="recipe__icon">
                         <use href="${icons}#icon-check"></use>
@@ -129,6 +129,6 @@ class RecipeView extends View {
                         </div>
                     </li>
                     `;
-    };
+  };
 }
 export default new RecipeView();
