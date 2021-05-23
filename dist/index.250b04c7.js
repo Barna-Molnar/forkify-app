@@ -396,6 +396,8 @@ var _bookmarksViewJs = require("./views/bookmarksView.js");
 var _bookmarksViewJsDefault = parcelHelpers.interopDefault(_bookmarksViewJs);
 var _addRecipeViewJs = require("./views/AddRecipeView.js");
 var _addRecipeViewJsDefault = parcelHelpers.interopDefault(_addRecipeViewJs);
+var _sortViewJs = require("./views/sortView.js");
+var _sortViewJsDefault = parcelHelpers.interopDefault(_sortViewJs);
 var _stable = require("core-js/stable");
 var _runtime = require("regenerator-runtime/runtime");
 var _lodash = require("lodash");
@@ -488,7 +490,12 @@ const controlAddRecipe = async function(newRecipe) {
         _addRecipeViewJsDefault.default.renderError(err.message);
     }
 };
+const controlSort = function(btn) {
+    console.log(btn);
+};
 const init = function() {
+    // control sort 
+    _sortViewJsDefault.default.addHandlerSort(controlSort);
     // bookmark
     _bookmarksViewJsDefault.default.addHandlerRender(controlHandlerBookmark);
     _recipeViewJsDefault.default.addHandlerRender(controlRecipe);
@@ -502,7 +509,7 @@ const init = function() {
 };
 init();
 
-},{"./model.js":"1hp6y","./views/recipeView.js":"9e6b9","./views/searchView.js":"3rYQ6","./views/resultsView.js":"17PYN","./views/paginationView.js":"5u5Fw","./views/bookmarksView.js":"2EbNZ","./views/AddRecipeView.js":"4ieaQ","core-js/stable":"1PFvP","regenerator-runtime/runtime":"62Qib","q":"72wJz","@parcel/transformer-js/src/esmodule-helpers.js":"367CR","lodash":"6kMIO","./config.js":"6pr2F"}],"1hp6y":[function(require,module,exports) {
+},{"./model.js":"1hp6y","./views/recipeView.js":"9e6b9","./views/searchView.js":"3rYQ6","./views/resultsView.js":"17PYN","./views/paginationView.js":"5u5Fw","./views/bookmarksView.js":"2EbNZ","./views/AddRecipeView.js":"4ieaQ","core-js/stable":"1PFvP","regenerator-runtime/runtime":"62Qib","q":"72wJz","@parcel/transformer-js/src/esmodule-helpers.js":"367CR","lodash":"6kMIO","./config.js":"6pr2F","./views/sortView.js":"6K5jH"}],"1hp6y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state
@@ -30162,6 +30169,21 @@ var global = arguments[3];
     root._ = _;
 }).call(this);
 
-},{}]},["1WnDs","3miIZ"], "3miIZ", "parcelRequirefade")
+},{}],"6K5jH":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SortView {
+    _parentElement = document.querySelector('.search__sort');
+    addHandlerSort(handler) {
+        this._parentElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            const btn = e.target.closest('.btnSort');
+            handler(btn);
+        });
+    }
+}
+exports.default = new SortView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"367CR"}]},["1WnDs","3miIZ"], "3miIZ", "parcelRequirefade")
 
 //# sourceMappingURL=index.250b04c7.js.map

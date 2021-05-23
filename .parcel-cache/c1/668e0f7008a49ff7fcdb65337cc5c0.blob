@@ -1,0 +1,13 @@
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SortView {
+    _parentElement = document.querySelector('.search__sort');
+    addHandlerSort(handler) {
+        this._parentElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            const btn = e.target.closest();
+            handler();
+        });
+    }
+}
+exports.default = new SortView();

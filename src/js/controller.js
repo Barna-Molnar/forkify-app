@@ -6,6 +6,7 @@ import resultsView from './views/resultsView.js'
 import paginationView from './views/paginationView.js'
 import bookmarksView from './views/bookmarksView.js'
 import addRecipeView from './views/AddRecipeView.js'
+import sortView from './views/sortView.js'
 
 
 
@@ -143,8 +144,13 @@ const controlAddRecipe = async function (newRecipe) {
   }
 }
 
+const controlSort = function (btn) {
+  console.log(btn)
+}
 
 const init = function () {
+  // control sort 
+  sortView.addHandlerSort(controlSort)
   // bookmark
   bookmarksView.addHandlerRender(controlHandlerBookmark)
 

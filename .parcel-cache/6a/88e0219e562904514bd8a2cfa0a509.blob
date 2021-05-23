@@ -455,7 +455,7 @@ body {
   display: grid;
   grid-template-columns: 1fr max-content max-content;
   align-items: center;
-  border-bottom: 1px solid #cecccc;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.05), inset -5px -5px 5px rgba(255, 255, 255, 0.5), 0px 5px 5px rgba(0, 0, 0, 0.05), -5px -5px 5px rgba(255, 255, 255, 0.5);
 }
 .search__sort__title {
   color: inherit;

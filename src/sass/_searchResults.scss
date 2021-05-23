@@ -6,7 +6,7 @@
 }
 .search__sort {
   width: 100%;
-
+  // background-color: #f9f5f3;
   position: absolute;
   top: 0;
   left: 0;
@@ -14,8 +14,10 @@
   display: grid;
   grid-template-columns: 1fr max-content max-content;
   align-items: center;
-  border-bottom: 1px solid rgb(206, 204, 204);
-
+  // border-bottom: 1px solid rgb(206, 204, 204);
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.05),
+    inset -5px -5px 5px rgba(255, 255, 255, 0.5),
+    0px 5px 5px rgba(0, 0, 0, 0.05), -5px -5px 5px rgba(255, 255, 255, 0.5);
   &__title {
     // color: #777;
     // font-size: 1.6rem;
