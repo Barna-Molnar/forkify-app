@@ -453,17 +453,18 @@ body {
 .pagination {
   margin-top: auto;
   padding: 0 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  grid-column-gap: 2rem;
 }
-.pagination::after {
-  content: "";
-  display: table;
-  clear: both;
+.pagination__currPage {
+  grid-column: 2/3;
 }
 .pagination__btn--prev {
   float: left;
 }
 .pagination__btn--next {
-  float: right;
+  grid-column: 3/4;
 }
 
 .copyright {
