@@ -53,7 +53,7 @@ class PaginationView extends View {
                     <span>Page ${curPage - 1}</span>
                 </button>
                 <div  class="btn--inline pagination__currPage">
-                    <span>${curPage}/ ${numPages}</span>
+                    <span>${curPage} / ${numPages}</span>
 
                 </div>
             `;

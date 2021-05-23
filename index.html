@@ -9,7 +9,10 @@
       rel="stylesheet"
     />
     <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
-
+    <script
+      src="https://kit.fontawesome.com/e2feeb3051.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="src/sass/main.scss" />
     <script defer src="src/js/controller.js"></script>
 
@@ -85,6 +88,19 @@
       </header>
 
       <div class="search-results">
+        <div class="search__sort">
+          <p class="search__sort__title">Cooking Time</p>
+          <button class="btnSort btnSort--up">
+            <span>
+              <i class="fas fa-arrow-up"></i>
+            </span>
+          </button>
+          <button class="btnSort btnSort--down">
+            <span>
+              <i class="fas fa-arrow-down"></i>
+            </span>
+          </button>
+        </div>
         <ul class="results">
           <!-- 
           <li class="preview">
