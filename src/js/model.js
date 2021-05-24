@@ -56,6 +56,7 @@ export const loadSearchResult = async function (query) {
 
         state.search.query = query;
         const data = await getJSON(`${API_URL}?search=${query}&key=${KEY}`)
+        console.log(data)
 
         state.search.results = data.data.recipes.map(rec => {
             return {
@@ -172,4 +173,9 @@ export const uploadRecipe = async function (newRecipe) {
         console.error(err)
         throw err
     }
+}
+export const sortResult = function (order) {
+
+    // console.log(todo)
+    // console.log(state.search.results)
 }

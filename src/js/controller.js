@@ -145,7 +145,7 @@ const controlAddRecipe = async function (newRecipe) {
 }
 
 const controlSort = function (btn) {
-  console.log(btn)
+  model.sortResult()
 }
 
 const init = function () {
